@@ -17,7 +17,7 @@ class CreateBookRequest extends FormRequest
             'title' => 'required|string',
             'author' => 'required|string',
             'price' => 'required|numeric',
-            'isPublic' => 'required|boolean',
+            'is_public' => 'required|boolean',
         ];
     }
 }

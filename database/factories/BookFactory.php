@@ -18,7 +18,7 @@ class BookFactory extends Factory
             'author' => $this->faker->name(),
             'description' => $this->faker->paragraph(),
             'price' => $this->faker->randomFloat(2, 1, 100),
-            'isPublic' => $this->faker->boolean()
+            'is_public' => $this->faker->boolean()
         ];
     }
 }

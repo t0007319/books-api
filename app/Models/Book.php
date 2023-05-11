@@ -14,6 +14,6 @@ class Book extends Model
         'author',
         'description',
         'price',
-        'isPublic'
+        'is_public'
     ];
 }

@@ -21,7 +21,7 @@ class BookController extends Controller
     {
 //        echo json_encode([request()->header('Authorization')]); exit;
         $books = Book::when(!auth('sanctum')->check(), static function ($query) {
-            return $query->where('isPublic', true);
+            return $query->where('is_public', true);
         })->orderBy('created_at', 'DESC');
 
         return response()->json($books->jsonPaginate());
@@ -36,20 +36,20 @@ class BookController extends Controller
     public function show(int $id): JsonResponse
     {
         $book = Book::when(!auth('sanctum')->check(), static function ($query) {
-            return $query->where('isPublic', true);
+            return $query->where('is_public', true);
         })->findOrFail($id);
 
         return response()->json($book);
     }
 
-    public function create(CreateBookRequest $request)
+    public function create(CreateBookRequest $request): JsonResponse
     {
         // Create a new book
         $book = new Book;
         $book->title = $request->input('title');
         $book->author = $request->input('author');
         $book->price = $request->input('price');
-        $book->isPublic = $request->input('isPublic');
+        $book->is_public = $request->input('is_public');
         $book->save();
 
         return response()->json([

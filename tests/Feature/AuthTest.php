@@ -20,12 +20,12 @@ class AuthTest extends TestCase
     public function testLoginSuccess(): void
     {
         $user = User::factory()->create([
-            'password' => Hash::make('password'), // Make sure to hash the password
+            'password' => Hash::make('Password123'), // Make sure to hash the password
         ]);
 
         $response = $this->postJson('/api/login', [
             'email' => $user->email,
-            'password' => 'password',
+            'password' => 'Password123',
         ]);
 
         $response->assertStatus(200)
@@ -40,7 +40,7 @@ class AuthTest extends TestCase
     public function testLoginWithIncorrectPassword(): void
     {
         $user = User::factory()->create([
-            'password' => Hash::make('password')
+            'password' => Hash::make('Password123')
         ]);
 
         $response = $this->postJson('/api/login', [
@@ -48,8 +48,8 @@ class AuthTest extends TestCase
             'password' => 'incorrect_password', // Provide incorrect password
         ]);
 
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors(['email' => 'Unauthorised']);
+        $response->assertStatus(401)
+            ->assertJson(['message' => 'Unauthorised']);
     }
 
     /**
@@ -61,7 +61,7 @@ class AuthTest extends TestCase
     {
         $response = $this->postJson('/api/login', [
             'email' => 'invalid_email', // Provide invalid email
-            'password' => 'password',
+            'password' => 'Password123',
         ]);
 
         $response->assertStatus(422)

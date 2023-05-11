@@ -19,7 +19,7 @@ class CreateBooksTable extends Migration
             $table->string('author');
             $table->text('description')->nullable();
             $table->decimal('price', 8, 2);
-            $table->boolean('isPublic');
+            $table->boolean('is_public');
             $table->timestamps();
         });
     }
