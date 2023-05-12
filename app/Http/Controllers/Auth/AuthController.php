@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthLoginRequest;
 use App\Http\Requests\AuthRegisterRequest;
+use App\Models\User;
 use http\Env\Request;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -39,6 +41,16 @@ class AuthController extends Controller
 
     public function register(AuthRegisterRequest $request)
     {
-        return response()->json(['message' => 'works']);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'User Created Successfully',
+            'token' => $user->createToken("api_token")->plainTextToken
+        ], 200);
     }
 }
