@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthLoginRequest;
+use App\Http\Requests\AuthRegisterRequest;
+use http\Env\Request;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,5 +35,10 @@ class AuthController extends Controller
 
         // login failed, throw error
         return response()->json(['message' => 'Unauthorised'], 401);
+    }
+
+    public function register(AuthRegisterRequest $request)
+    {
+        return response()->json(['message' => 'works']);
     }
 }

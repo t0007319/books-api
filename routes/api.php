@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\BookController;
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // login - public route
-Route::post('/login', 'Auth\AuthController@login')->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1', 'cors'], static function () {
     // Read Books public or private

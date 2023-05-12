@@ -7,7 +7,6 @@ use App\Http\Requests\CreateBookRequest;
 use App\Models\Book;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class BookController extends Controller
@@ -19,7 +18,6 @@ class BookController extends Controller
      */
     public function index()
     {
-//        echo json_encode([request()->header('Authorization')]); exit;
         $books = Book::when(!auth('sanctum')->check(), static function ($query) {
             return $query->where('is_public', true);
         })->orderBy('created_at', 'DESC');
